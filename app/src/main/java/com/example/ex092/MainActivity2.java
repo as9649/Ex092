@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,6 +24,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnCreateCon
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
         lv = findViewById(R.id.lv);
         tv = findViewById(R.id.tv);
         Intent gi = getIntent();
@@ -33,6 +35,22 @@ public class MainActivity2 extends AppCompatActivity implements View.OnCreateCon
         ArrayAdapter<String> adp = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, arr);
         lv.setAdapter(adp);
         lv.setOnCreateContextMenuListener(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        menu.add("next");
+        menu.add("back");
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        String str=item.getTitle().toString();
+        Intent si1 = null;
+        if(str.equals("next")) si1 =new Intent(getApplicationContext(), MainActivity3.class);
+        else if (str.equals("back")) si1=new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(si1);
+        return true;
     }
 
     @Override
